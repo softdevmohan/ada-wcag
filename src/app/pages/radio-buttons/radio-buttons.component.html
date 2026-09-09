@@ -1,0 +1,111 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Radio Groups with Fieldsets & Legends</h2>
+        <p>Wrap mutually exclusive options in semantic fieldsets to announce group labels automatically.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Standard Accessible Radio Group</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 1.3.1</span><span class="badge badge-green">Level: A</span></div>
+        </div>
+        <p class="template-desc">Full keyboard roving tabindex and arrow-key cycling support.</p>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <fieldset style="border:1px solid #cbd5e1;border-radius:8px;padding:16px;width:100%;max-width:380px;">
+              <legend style="font-weight:700;padding:0 6px;font-size:0.9rem;">Shipping Method</legend>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+                <label style="display:flex;align-items:center;gap:8px;font-size:0.85rem;cursor:pointer;">
+                  <input type="radio" name="preview_shipping" checked /> Standard (3-5 Days) - Free
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;font-size:0.85rem;cursor:pointer;">
+                  <input type="radio" name="preview_shipping" /> Priority Express (1 Day) - $15.00
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-rad-html')">
+              @if (copiedId === 'code-rad-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12</div><code class="code-content" ngNonBindable id="code-rad-html">&lt;fieldset class="radio-fieldset"&gt;
+  &lt;legend class="radio-legend"&gt;Shipping Method&lt;/legend&gt;
+  &lt;div *ngFor="let opt of options" class="radio-row"&gt;
+    &lt;input 
+      type="radio" 
+      [id]="opt.id" 
+      name="shippingGroup" 
+      [value]="opt.value" 
+      [(ngModel)]="selectedShipping" /&gt;
+    &lt;label [for]="opt.id"&gt;&#123;&#123; opt.label &#125;&#125;&lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-rad-ts')">
+              @if (copiedId === 'code-rad-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7</div><code class="code-content" ngNonBindable id="code-rad-ts">export class RadioComponent &#123;
+  selectedShipping = 'std';
+  options = [
+    &#123; id: 'ship-std', value: 'std', label: 'Standard (3-5 Days) - Free' &#125;,
+    &#123; id: 'ship-exp', value: 'exp', label: 'Priority Express (1 Day) - $15.00' &#125;
+  ];
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-rad-css')">
+              @if (copiedId === 'code-rad-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><code class="code-content" ngNonBindable id="code-rad-css">.radio-fieldset &#123; border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; &#125;
+.radio-row &#123; display: flex; align-items: center; gap: 8px; margin-top: 8px; &#125;
+input[type="radio"]:focus-visible &#123; outline: 3px solid #1765e7; outline-offset: 2px; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Radio Button Best Practices</h4>
+            <ul>
+              <li>All radio inputs in a single group must share identical <code>name</code> attributes.</li>
+              <li>Arrow keys navigate within a group, while the Tab key moves to the next focusable component.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "Shipping Method grouping, Standard radio button checked 1 of 2"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>1.3.1 Info and Relationships</p><p>3.3.2 Labels</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>All radios must share matching name attributes in groups.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Fieldset + Legend</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Un-grouped radios</li></ul></div>
+        </div>
+      </div>

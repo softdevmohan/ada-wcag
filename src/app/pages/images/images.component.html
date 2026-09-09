@@ -1,0 +1,94 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Images, SVGs, and Decorative Icons</h2>
+        <p>Informative graphics require meaningful alternative text; decorative icons require empty <code>alt=""</code> and <code>aria-hidden="true"</code>.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Informative vs Decorative Graphics</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 1.1.1</span><span class="badge badge-green">Level: A</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <button type="button" class="demo-btn" style="padding:8px 16px;">
+                <app-icon name="download" style="width:16px;height:16px;" aria-hidden="true"></app-icon>
+                <span>Download Report</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-img-html')">
+              @if (copiedId === 'code-img-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7</div><code class="code-content" ngNonBindable id="code-img-html">&lt;!-- 1. Informative image --&gt;
+&lt;img src="sales.png" alt="Annual conversion funnel: 40% leads, 10% closed contracts." /&gt;
+
+&lt;!-- 2. Decorative icon alongside visible label --&gt;
+&lt;button type="button" class="btn"&gt;
+  &lt;svg aria-hidden="true" focusable="false"&gt;...&lt;/svg&gt;
+  &lt;span&gt;Download Report&lt;/span&gt;
+&lt;/button&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-img-ts')">
+              @if (copiedId === 'code-img-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2</div><code class="code-content" ngNonBindable id="code-img-ts">// Semantic markup pattern
+export class ImagesComponent &#123;&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-img-css')">
+              @if (copiedId === 'code-img-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2</div><code class="code-content" ngNonBindable id="code-img-css">img &#123; max-width: 100%; height: auto; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Image Rules</h4>
+            <ul>
+              <li>Do not include "image of" or "photo of" in <code>alt</code> text.</li>
+              <li>Every <code>&lt;img&gt;</code> must have an <code>alt</code> attribute (empty <code>alt=""</code> for decorative).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "Graphic: Annual conversion funnel..."</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>1.1.1 Non-text Content</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>All &lt;img&gt; elements must possess an alt attribute (Rule S6848).</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Concise alt descriptions</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Missing alt tags</li></ul></div>
+        </div>
+      </div>

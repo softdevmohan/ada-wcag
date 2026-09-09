@@ -1,0 +1,94 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Reusable Angular Accessibility Directives</h2>
+        <p>Encapsulate focus trapping, keyboard roving, and automatic error focus in reusable Angular directives.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>AutoFocus First Error Directive</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 2.4.3</span><span class="badge badge-green">Level: A</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <form onsubmit="event.preventDefault(); document.getElementById('err-field').focus();" style="width:100%;max-width:380px;display:flex;flex-direction:column;gap:8px;">
+              <input id="err-field" placeholder="Full Name (Required)" class="demo-input" style="border-color:#dc2626;" />
+              <button type="submit" class="demo-btn">Submit Profile</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-dir-html')">
+              @if (copiedId === 'code-dir-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-dir-html">&lt;form (ngSubmit)="onSubmit()" appAutoFocusFirstError&gt;
+  &lt;input formControlName="name" required /&gt;
+  &lt;button type="submit"&gt;Save&lt;/button&gt;
+&lt;/form&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-dir-ts')">
+              @if (copiedId === 'code-dir-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div><code class="code-content" ngNonBindable id="code-dir-ts">&#64;Directive(&#123; selector: '[appAutoFocusFirstError]' &#125;)
+export class AutoFocusFirstErrorDirective &#123;
+  constructor(private el: ElementRef) &#123;&#125;
+
+  focusFirst(): void &#123;
+    const invalid: HTMLElement = this.el.nativeElement.querySelector('.ng-invalid');
+    if (invalid) invalid.focus();
+  &#125;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-dir-css')">
+              @if (copiedId === 'code-dir-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2</div><code class="code-content" ngNonBindable id="code-dir-css">input.ng-invalid:focus-visible &#123; outline: 3px solid #dc2626; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Directive Rules</h4>
+            <ul>
+              <li>Always query DOM elements through Angular's <code>ElementRef</code> abstraction to maintain SSR compatibility.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "Full Name, edit invalid entry"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>2.4.3 Focus Order</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Ensure target elements receiving focus are focusable.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Auto focus errors</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Leave focus at submit button</li></ul></div>
+        </div>
+      </div>

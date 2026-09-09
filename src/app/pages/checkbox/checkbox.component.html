@@ -1,0 +1,132 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Context-Aware Table Checkbox</h2>
+        <p>Row-specific identifiers that prevent repetitive and ambiguous 'Select row' screen reader outputs.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Table Checkbox Implementation</h3>
+          <div class="badges-group">
+            <span class="badge badge-blue">WCAG: 1.3.1</span>
+            <span class="badge badge-green">Level: AA</span>
+          </div>
+        </div>
+        <p class="template-desc">Unique row context passed via aria-label.</p>
+
+        <!-- Tabs -->
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.9rem;cursor:pointer;">
+              <input type="checkbox" style="width:18px;height:18px;" checked />
+              <span>Select user Sarah Jenkins (Administrator)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">HTML Template</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-chk-html')">
+              @if (copiedId === 'code-chk-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div>
+              <code class="code-content" ngNonBindable id="code-chk-html">&lt;input 
+  type="checkbox" 
+  [checked]="row.selected"
+  (change)="toggleRow(row)"
+  [attr.aria-label]="'Select user ' + row.fullName" /&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">TypeScript</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-chk-ts')">
+              @if (copiedId === 'code-chk-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5</div>
+              <code class="code-content" ngNonBindable id="code-chk-ts">toggleRow(row: UserRow): void &#123;
+  row.selected = !row.selected;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">CSS Styles</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-chk-css')">
+              @if (copiedId === 'code-chk-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4</div>
+              <code class="code-content" ngNonBindable id="code-chk-css">input[type="checkbox"]:focus-visible &#123;
+  outline: 3px solid #1765e7;
+  outline-offset: 2px;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Checkbox Guidelines</h4>
+            <ul>
+              <li>Provide descriptive aria-labels for table-bound checkboxes.</li>
+              <li>For master select checkboxes, set <code>aria-checked="mixed"</code> on indeterminate states.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col">
+            <div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div>
+            <p><strong>NVDA:</strong> "Select user Sarah Jenkins check box checked"</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div>
+            <p>1.3.1 Info and Relationships</p>
+            <p>4.1.2 Name, Role, Value</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div>
+            <p>Ensure every form control has an accessible label or aria-label attribute.</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div>
+            <ul>
+              <li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Contextual label</li>
+              <li><app-icon name="x-circle" class="icon-fail"></app-icon> Don't omit label</li>
+            </ul>
+          </div>
+        </div>
+      </div>

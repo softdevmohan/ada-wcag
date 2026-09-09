@@ -1,0 +1,98 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Programmatic Focus Management</h2>
+        <p>Preserve and restore focus during asynchronous record deletions and DOM re-renders.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Focus Restoration on DOM Mutation</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 2.4.3</span><span class="badge badge-green">Level: A</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <ul id="demo-focus-list" style="list-style:none;width:100%;max-width:380px;display:flex;flex-direction:column;gap:8px;">
+              @for (item of focusItems; track item.id) {
+                <li style="display:flex;justify-content:space-between;align-items:center;background:#fff;padding:8px 12px;border:1px solid #cbd5e1;border-radius:6px;">
+                  <span>{{ item.name }}</span>
+                  <button type="button" style="background:#dc2626;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;" (click)="removeFocusItem(item.id)">Delete</button>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-foc-html')">
+              @if (copiedId === 'code-foc-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><code class="code-content" ngNonBindable id="code-foc-html">&lt;ul #listContainer&gt;
+  &lt;li *ngFor="let item of items; let i = index"&gt;
+    &lt;span&gt;&#123;&#123; item.name &#125;&#125;&lt;/span&gt;
+    &lt;button type="button" [id]="'btn-' + i" (click)="deleteItem(i)"&gt;Delete&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-foc-ts')">
+              @if (copiedId === 'code-foc-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div><code class="code-content" ngNonBindable id="code-foc-ts">deleteItem(index: number): void &#123;
+  this.items.splice(index, 1);
+  setTimeout(() => &#123;
+    const nextBtn = document.getElementById('btn-' + Math.min(index, this.items.length - 1));
+    nextBtn ? nextBtn.focus() : document.getElementById('main-content')?.focus();
+  &#125;, 50);
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-foc-css')">
+              @if (copiedId === 'code-foc-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3</div><code class="code-content" ngNonBindable id="code-foc-css">button:focus-visible &#123; outline: 3px solid #1765e7; outline-offset: 2px; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Focus Rules</h4>
+            <ul>
+              <li>When removing an item, shift focus to the adjacent sibling or parent list rather than dumping focus to <code>&lt;body&gt;</code>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "Delete button focused on next item"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>2.4.3 Focus Order</p><p>3.2.1 On Focus</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Target receiving .focus() must be interactive or have tabindex="-1".</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Restore focus</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Lose focus to body</li></ul></div>
+        </div>
+      </div>

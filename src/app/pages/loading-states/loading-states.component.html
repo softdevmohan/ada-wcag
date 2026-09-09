@@ -1,0 +1,131 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Loading Spinners & Skeleton Screens</h2>
+        <p>Use <code>aria-busy="true"</code> and live region announcements to communicate background loading states without disorienting screen readers.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Asynchronous Data Loader Pattern</h3>
+          <div class="badges-group">
+            <span class="badge badge-blue">WCAG: 4.1.3</span>
+            <span class="badge badge-green">Level: AA</span>
+          </div>
+        </div>
+        <p class="template-desc">Combines aria-busy container flags with hidden status alerts and respect for reduced-motion settings.</p>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="background:#fff;border:1px solid #cbd5e1;border-radius:8px;padding:24px;width:100%;max-width:400px;text-align:center;">
+              <div style="display:inline-block;width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:#1765e7;border-radius:50%;animation:spin 1s linear infinite;"></div>
+              <p style="margin-top:12px;font-size:0.85rem;color:#475569;font-weight:600;">Fetching monthly analytics records...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">HTML Template</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-load-html')">
+              @if (copiedId === 'code-load-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div>
+              <code class="code-content" ngNonBindable id="code-load-html">&lt;div class="data-region" [attr.aria-busy]="isLoading"&gt;
+  &lt;div *ngIf="isLoading" role="status" class="spinner-container"&gt;
+    &lt;div class="spinner-animation" aria-hidden="true"&gt;&lt;/div&gt;
+    &lt;span class="sr-only"&gt;Loading quarterly financial records, please wait...&lt;/span&gt;
+  &lt;/div&gt;
+  
+  &lt;div *ngIf="!isLoading"&gt;
+    &lt;!-- Loaded Dynamic Content --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">TypeScript</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-load-ts')">
+              @if (copiedId === 'code-load-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7</div>
+              <code class="code-content" ngNonBindable id="code-load-ts">export class LoadingStateComponent &#123;
+  isLoading = true;
+
+  fetchDataComplete(): void &#123;
+    this.isLoading = false;
+  &#125;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">CSS</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-load-css')">
+              @if (copiedId === 'code-load-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div>
+              <code class="code-content" ngNonBindable id="code-load-css">&#64;media (prefers-reduced-motion: reduce) &#123;
+  .spinner-animation &#123;
+    animation: none;
+    border-style: dotted;
+  &#125;
+&#125;
+.sr-only &#123;
+  position: absolute; width: 1px; height: 1px;
+  clip: rect(0, 0, 0, 0); overflow: hidden;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Loading State Rules</h4>
+            <ul>
+              <li>Always provide <code>aria-busy="true"</code> on the updating container while an asynchronous operation is in flight.</li>
+              <li>Include accessible text for screen readers (e.g. <code>.sr-only</code>) inside a <code>role="status"</code> container.</li>
+              <li>Respect <code>prefers-reduced-motion</code> by pausing continuous rotation for sensitive users.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "Loading quarterly financial records, please wait... status"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>4.1.3 Status Messages</p><p>2.2.2 Pause, Stop, Hide</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Provide prefers-reduced-motion fallbacks on infinite CSS animations.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Set aria-busy</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Silent loaders</li></ul></div>
+        </div>
+      </div>

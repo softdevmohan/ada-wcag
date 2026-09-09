@@ -1,0 +1,103 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Screen Reader Only (.sr-only) Utilities</h2>
+        <p>Visually hide contextual supplementary text while preserving accessibility tree announcements.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Certified .sr-only CSS Pattern</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 1.3.1</span><span class="badge badge-green">Level: A</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="background:#fff;border:1px solid #cbd5e1;padding:16px 24px;border-radius:8px;">
+              <span style="font-size:0.85rem;color:#64748b;">Annual Revenue Growth:</span>
+              <div style="font-size:1.5rem;font-weight:700;color:#16a34a;display:flex;align-items:center;gap:6px;">
+                +24.8%
+                <app-icon name="trending-up" style="width:20px;height:20px;" aria-hidden="true"></app-icon>
+                <span class="sr-only">growth compared to last fiscal year</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-sro-html')">
+              @if (copiedId === 'code-sro-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5</div><code class="code-content" ngNonBindable id="code-sro-html">&lt;div class="metric-card"&gt;
+  &lt;span class="val"&gt;+24.8%&lt;/span&gt;
+  &lt;span class="sr-only"&gt;growth compared to last fiscal year&lt;/span&gt;
+  &lt;i class="icon-up" aria-hidden="true"&gt;&lt;/i&gt;
+&lt;/div&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-sro-ts')">
+              @if (copiedId === 'code-sro-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2</div><code class="code-content" ngNonBindable id="code-sro-ts">// Global styling utility
+export class SrOnlyDemoComponent &#123;&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-sro-css')">
+              @if (copiedId === 'code-sro-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div><code class="code-content" ngNonBindable id="code-sro-css">.sr-only &#123;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>.sr-only CSS Rules</h4>
+            <ul>
+              <li>Do not use <code>display: none</code> or <code>visibility: hidden</code> if screen readers must read the text.</li>
+              <li>Always pair visual standalone iconography with hidden contextual descriptions.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "+24.8% growth compared to last fiscal year"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>1.1.1 Non-text Content</p><p>1.3.1 Info and Relationships</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Ensure icons without visible text provide accessible alternatives.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> CSS clipping</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> display:none for AT</li></ul></div>
+        </div>
+      </div>

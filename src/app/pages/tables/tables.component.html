@@ -1,0 +1,156 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Data Tables with Headers & Scope</h2>
+        <p>Ensure assistive technologies associate each cell with its corresponding column and row headers.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Scoped Data Table</h3>
+          <div class="badges-group">
+            <span class="badge badge-blue">WCAG: 1.3.1</span>
+            <span class="badge badge-green">Level: A</span>
+          </div>
+        </div>
+
+        <!-- 5 Tabs -->
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <table style="width:100%;max-width:480px;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;font-size:0.85rem;">
+              <caption style="text-align:left;font-weight:700;margin-bottom:6px;">Department Budget Summary</caption>
+              <thead>
+                <tr style="background:#f1f5f9;">
+                  <th scope="col" style="padding:8px 12px;text-align:left;border-bottom:1px solid #e2e8f0;">Department</th>
+                  <th scope="col" style="padding:8px 12px;text-align:left;border-bottom:1px solid #e2e8f0;">Budget</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" style="padding:8px 12px;text-align:left;border-bottom:1px solid #e2e8f0;">Engineering</th>
+                  <td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">$120,000</td>
+                </tr>
+                <tr>
+                  <th scope="row" style="padding:8px 12px;text-align:left;">Design</th>
+                  <td style="padding:8px 12px;">$45,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">HTML Template</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-tbl-html')">
+              @if (copiedId === 'code-tbl-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11</div>
+              <code class="code-content" ngNonBindable id="code-tbl-html">&lt;table class="data-table"&gt;
+  &lt;caption&gt;Department Budget Summary&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Department&lt;/th&gt;
+      &lt;th scope="col"&gt;Budget&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr *ngFor="let row of rows"&gt;
+      &lt;th scope="row"&gt;&#123;&#123; row.dept &#125;&#125;&lt;/th&gt;
+      &lt;td&gt;&#123;&#123; row.budget | currency &#125;&#125;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">TypeScript</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-tbl-ts')">
+              @if (copiedId === 'code-tbl-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div>
+              <code class="code-content" ngNonBindable id="code-tbl-ts">rows = [
+  &#123; dept: 'Engineering', budget: 120000 &#125;,
+  &#123; dept: 'Design', budget: 45000 &#125;
+];</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">CSS</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-tbl-css')">
+              @if (copiedId === 'code-tbl-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4</div>
+              <code class="code-content" ngNonBindable id="code-tbl-css">.data-table &#123;
+  width: 100%;
+  border-collapse: collapse;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Table Best Practices</h4>
+            <ul>
+              <li>Always provide <code>&lt;caption&gt;</code> for the table title.</li>
+              <li>Use <code>scope="col"</code> on column headers and <code>scope="row"</code> on row headers.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col">
+            <div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div>
+            <p><strong>JAWS:</strong> "Table with 2 columns and 2 rows. Department, Budget."</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div>
+            <p>1.3.1 Info and Relationships</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div>
+            <p>All &lt;table&gt; headers must declare scope attributes.</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div>
+            <ul>
+              <li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Scoped headers</li>
+              <li><app-icon name="x-circle" class="icon-fail"></app-icon> Don't use for layout</li>
+            </ul>
+          </div>
+        </div>
+      </div>

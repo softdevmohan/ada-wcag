@@ -1,0 +1,90 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Print & Accessible PDF Layouts</h2>
+        <p>Expand URLs in print styles and hide non-functional navigation menus.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Print Media Stylesheet Pattern</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 1.3.1</span><span class="badge badge-green">Level: A</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="background:#fff;border:1px solid #000;padding:16px;width:100%;max-width:380px;color:#000;">
+              <h4 style="font-weight:700;">Invoice #9842</h4>
+              <p style="font-size:0.85rem;margin-top:6px;">Online portal: org.com/pay (https://org.com/pay)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-prt-html')">
+              @if (copiedId === 'code-prt-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-prt-html">&lt;div class="printable-doc"&gt;
+  &lt;h2&gt;Invoice #9842&lt;/h2&gt;
+  &lt;a href="https://org.com/pay" class="print-url"&gt;Payment Portal&lt;/a&gt;
+&lt;/div&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-prt-ts')">
+              @if (copiedId === 'code-prt-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2</div><code class="code-content" ngNonBindable id="code-prt-ts">export class PrintLayoutComponent &#123;&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-prt-css')">
+              @if (copiedId === 'code-prt-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><code class="code-content" ngNonBindable id="code-prt-css">&#64;media print &#123;
+  aside, header, footer, .no-print &#123; display: none !important; &#125;
+  body &#123; color: black !important; background: white !important; &#125;
+  a.print-url::after &#123; content: " (" attr(href) ")"; font-size: 85%; &#125;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Print Rules</h4>
+            <ul>
+              <li>Expand target hyperlinks so paper documents communicate explicit web destinations.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "Invoice #9842, Payment Portal link"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>1.3.1 Info and Relationships</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Hide un-focusable navigation elements in print CSS.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Expand URLs</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Print grey backgrounds</li></ul></div>
+        </div>
+      </div>

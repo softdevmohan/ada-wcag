@@ -1,0 +1,138 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Expand / Collapse Accordions</h2>
+        <p>Use <code>aria-expanded</code> and <code>aria-controls</code> to link toggles directly with collapsible
+          content panes.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Accordion Header Pattern</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 4.1.2</span><span
+              class="badge badge-green">Level: AA</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div
+              style="width:100%;max-width:440px;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+              <h3>
+                <button type="button"
+                  style="width:100%;text-align:left;padding:12px 16px;background:#f8fafc;border:none;display:flex;justify-content:space-between;cursor:pointer;font-weight:600;"
+                  (click)="toggleAccordion()" [attr.aria-expanded]="accordionOpen">
+                  <span>Billing & Subscription Details</span>
+                  <app-icon name="chevron-down" style="width:16px;height:16px;"></app-icon>
+                </button>
+              </h3>
+              <div id="acc-p-demo" [hidden]="!accordionOpen" style="padding:14px 16px;font-size:0.85rem;color:#475569;border-top:1px solid #e2e8f0;">
+                Enterprise billing renewed annually on October 1st. Invoices sent via email.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-acc-html')">
+              @if (copiedId === 'code-acc-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14</div>
+              <code class="code-content" ngNonBindable id="code-acc-html">&lt;div class="accordion-item"&gt;
+  &lt;h3&gt;
+    &lt;button 
+      type="button" 
+      id="acc-btn-billing"
+      [attr.aria-expanded]="isExpanded" 
+      aria-controls="acc-sect-billing"
+      (click)="isExpanded = !isExpanded"&gt;
+      Billing & Subscription Details
+    &lt;/button&gt;
+  &lt;/h3&gt;
+  &lt;div id="acc-sect-billing" role="region" aria-labelledby="acc-btn-billing" [hidden]="!isExpanded"&gt;
+    &lt;p&gt;Enterprise billing renewed annually.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-acc-ts')">
+              @if (copiedId === 'code-acc-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-acc-ts">export class AccordionComponent &#123;
+  isExpanded = true;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-acc-css')">
+              @if (copiedId === 'code-acc-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-acc-css">button:focus-visible &#123;
+  outline: 3px solid #1765e7;
+  outline-offset: 2px;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Accordion Rules</h4>
+            <ul>
+              <li>Always nest accordion trigger buttons inside semantic heading elements (<code>&lt;h3&gt;</code>).</li>
+              <li>When the accordion panel is collapsed, apply the <code>hidden</code> attribute or
+                <code>display: none</code> to remove panel contents from the screen reader reading order.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col">
+            <div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div>
+            <p><strong>NVDA:</strong> "Billing & Subscription Details button expanded"</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div>
+            <p>4.1.2 Name, Role, Value</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div>
+            <p>Accordion trigger elements must include aria-controls.</p>
+          </div>
+          <div class="audit-col">
+            <div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div>
+            <ul>
+              <li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Heading wrappers</li>
+              <li><app-icon name="x-circle" class="icon-fail"></app-icon> Unhidden collapsed text</li>
+            </ul>
+          </div>
+        </div>
+      </div>

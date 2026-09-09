@@ -1,0 +1,96 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Tooltips on Focus and Hover</h2>
+        <p>Tooltips must be dismissible on Escape, persistent on hover, and linked via <code>aria-describedby</code>.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>WAI-ARIA Tooltip</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 1.4.13</span><span class="badge badge-green">Level: AA</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="position:relative;display:inline-block;">
+              <button type="button" aria-describedby="tip-demo" style="padding:8px 16px;background:#1765e7;color:#fff;border:none;border-radius:6px;cursor:pointer;" onfocus="document.getElementById('tip-demo').style.display='block'" onblur="document.getElementById('tip-demo').style.display='none'">
+                CVV Code
+              </button>
+              <div id="tip-demo" role="tooltip" style="display:none;position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:6px 12px;border-radius:4px;font-size:0.75rem;white-space:nowrap;">
+                3 digits on signature strip
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-tip-html')">
+              @if (copiedId === 'code-tip-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><code class="code-content" ngNonBindable id="code-tip-html">&lt;button type="button" aria-describedby="tip-1" (focus)="show = true" (blur)="show = false"&gt;
+  CVV Code
+&lt;/button&gt;
+&lt;div id="tip-1" role="tooltip" [class.sr-only]="!show"&gt;
+  3 digits located on signature strip
+&lt;/div&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-tip-ts')">
+              @if (copiedId === 'code-tip-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3</div><code class="code-content" ngNonBindable id="code-tip-ts">export class TooltipComponent &#123;
+  show = false;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-tip-css')">
+              @if (copiedId === 'code-tip-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3</div><code class="code-content" ngNonBindable id="code-tip-css">div[role="tooltip"] &#123; background: #0f172a; color: #fff; border-radius: 4px; padding: 4px 8px; &#125;
+button:focus-visible &#123; outline: 3px solid #1765e7; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Tooltip Rules</h4>
+            <ul>
+              <li>Tooltips must trigger on keyboard focus as well as mouse hover.</li>
+              <li>Do not place actionable controls (like links or buttons) inside tooltips.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "CVV Code button, 3 digits located on signature strip"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>1.4.13 Content on Hover or Focus</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Tooltips must provide role="tooltip" and unique element IDs.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Focus triggers</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Mouse-only hover</li></ul></div>
+        </div>
+      </div>

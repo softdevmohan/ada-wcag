@@ -1,0 +1,112 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Comboboxes & ng-select</h2>
+        <p>WAI-ARIA 1.2 compliant searchable combobox with keyboard arrow selection and active descendant bindings.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>ARIA 1.2 Combobox Implementation</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 4.1.2</span><span class="badge badge-green">Level: AA</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="width:100%;max-width:360px;">
+              <label for="owner-select" style="font-weight:600;font-size:0.85rem;display:block;margin-bottom:4px;">Assign Team Owner</label>
+              <ng-select
+                inputId="owner-select"
+                [items]="owners"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="selectedOwner"
+                [searchable]="true"
+                placeholder="Select an owner">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-drp-html')">
+              @if (copiedId === 'code-drp-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16</div><code class="code-content" ngNonBindable id="code-drp-html">&lt;div class="combobox-container"&gt;
+  &lt;label id="cb-lbl" for="cb-inp"&gt;Assign Team Owner&lt;/label&gt;
+  &lt;input 
+    id="cb-inp"
+    type="text" 
+    role="combobox"
+    aria-autocomplete="list"
+    [attr.aria-expanded]="isOpen"
+    aria-haspopup="listbox"
+    aria-labelledby="cb-lbl"
+    [attr.aria-activedescendant]="activeOptId" /&gt;
+  &lt;ul id="cb-list" role="listbox" *ngIf="isOpen" aria-labelledby="cb-lbl"&gt;
+    &lt;li *ngFor="let opt of items" [id]="'opt-' + opt.id" role="option" [attr.aria-selected]="opt.id === activeId"&gt;&#123;&#123; opt.name &#125;&#125;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-drp-ts')">
+              @if (copiedId === 'code-drp-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7</div><code class="code-content" ngNonBindable id="code-drp-ts">export class ComboboxComponent &#123;
+  isOpen = false;
+  activeOptId = 'opt-101';
+  activeId = '101';
+  items = [&#123; id: '101', name: 'Sarah Jenkins' &#125;, &#123; id: '102', name: 'David Miller' &#125;];
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-drp-css')">
+              @if (copiedId === 'code-drp-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-drp-css">li[role="option"][aria-selected="true"] &#123; background: #eff6ff; color: #1765e7; &#125;
+input:focus-visible &#123; outline: 3px solid #1765e7; outline-offset: 2px; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Combobox Rules</h4>
+            <ul>
+              <li>Always update <code>aria-activedescendant</code> to the selected item's DOM ID during keyboard arrow navigation.</li>
+              <li>Pressing Escape must close the dropdown without clearing the active input focus.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "Assign Team Owner, combobox expanded, Sarah Jenkins 1 of 2"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>4.1.2 Name, Role, Value</p><p>2.1.1 Keyboard</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Elements with role='combobox' must have aria-expanded attributes.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> aria-activedescendant</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Div click dropdowns</li></ul></div>
+        </div>
+      </div>

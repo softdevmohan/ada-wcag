@@ -1,0 +1,18 @@
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+  {{ activePageTitle$ | async }}
+</div>
+
+<app-header></app-header>
+
+<div class="app-layout">
+  <app-sidebar></app-sidebar>
+  <main id="main-content" tabindex="-1">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<app-footer></app-footer>
+
+<div id="copy-toast" [class.show]="clipboard.toastVisible()">Code copied to clipboard!</div>

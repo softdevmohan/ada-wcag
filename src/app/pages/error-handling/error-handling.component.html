@@ -1,0 +1,167 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Error Handling & Form Summary</h2>
+        <p>Shift focus to a comprehensive error summary on submit failure with deep-links directly jumping to invalid input fields.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Error Summary Banner & Input Association</h3>
+          <div class="badges-group">
+            <span class="badge badge-blue">WCAG: 3.3.1</span>
+            <span class="badge badge-green">Level: A</span>
+          </div>
+        </div>
+        <p class="template-desc">Provides programmatically linked validation messages and sets DOM focus upon form submission failure.</p>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="width:100%;max-width:440px;display:flex;flex-direction:column;gap:12px;">
+              <div role="alert" tabindex="-1" style="background:#fef2f2;border:1px solid #f87171;border-radius:8px;padding:12px 16px;">
+                <h4 style="color:#b91c1c;font-size:0.9rem;margin-bottom:6px;">There is 1 error in your submission:</h4>
+                <ul style="padding-left:18px;font-size:0.8rem;color:#b91c1c;">
+                  <li><a href="#demo-email" style="color:#b91c1c;text-decoration:underline;" (click)="focusDemoEmailField($event)">Corporate Email is required</a></li>
+                </ul>
+              </div>
+              <div>
+                <label for="demo-email" style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:4px;">Corporate Email <span style="color:#dc2626;">*</span></label>
+                <input id="demo-email" #demoEmail type="email" style="width:100%;padding:8px;border:1px solid #dc2626;border-radius:6px;" aria-invalid="true" aria-describedby="demo-err-text" />
+                <span id="demo-err-text" style="color:#dc2626;font-size:0.75rem;font-weight:600;">Please provide a valid company email address.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">HTML Template</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-err-html')">
+              @if (copiedId === 'code-err-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20</div>
+              <code class="code-content" ngNonBindable id="code-err-html">&lt;div 
+  #errorSummary 
+  tabindex="-1" 
+  role="alert" 
+  class="error-summary-box" 
+  *ngIf="submitted && form.invalid"&gt;
+  &lt;h3&gt;There are &#123;&#123; getErrorCount() &#125;&#125; errors in this submission:&lt;/h3&gt;
+  &lt;ul&gt;
+    &lt;li *ngIf="form.get('email')?.invalid"&gt;
+      &lt;a href="#emailInput" (click)="focusField('emailInput', $event)"&gt;
+        Corporate Email is required
+      &lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;label for="emailInput"&gt;Corporate Email &lt;span aria-hidden="true"&gt;*&lt;/span&gt;&lt;/label&gt;
+&lt;input 
+  id="emailInput" 
+  [formControl]="form.controls.email" 
+  [attr.aria-invalid]="submitted && form.controls.email.invalid" 
+  aria-describedby="emailErr" /&gt;
+&lt;span id="emailErr" role="alert" *ngIf="submitted && form.controls.email.invalid"&gt;
+  Please provide a valid company email address.
+&lt;/span&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">TypeScript</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-err-ts')">
+              @if (copiedId === 'code-err-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17</div>
+              <code class="code-content" ngNonBindable id="code-err-ts">import &#123; Component, ElementRef, ViewChild &#125; from '&#64;angular/core';
+import &#123; FormControl, FormGroup, Validators &#125; from '&#64;angular/forms';
+
+&#64;Component(&#123; selector: 'app-error-summary', templateUrl: './error-summary.component.html' &#125;)
+export class ErrorSummaryComponent &#123;
+  &#64;ViewChild('errorSummary') errorSummary!: ElementRef;
+  submitted = false;
+  form = new FormGroup(&#123; email: new FormControl('', [Validators.required, Validators.email]) &#125;);
+
+  onSubmit(): void &#123;
+    this.submitted = true;
+    if (this.form.invalid) &#123;
+      setTimeout(() => this.errorSummary.nativeElement.focus(), 50);
+    &#125;
+  &#125;
+  focusField(id: string, e: Event): void &#123;
+    e.preventDefault();
+    document.getElementById(id)?.focus();
+  &#125;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">CSS</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-err-css')">
+              @if (copiedId === 'code-err-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</div>
+              <code class="code-content" ngNonBindable id="code-err-css">.error-summary-box &#123;
+  background-color: #fef2f2;
+  border: 2px solid #dc2626;
+  border-radius: 8px;
+  padding: 16px;
+&#125;
+.error-summary-box:focus &#123;
+  outline: 3px solid #1765e7;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Error Management Best Practices</h4>
+            <ul>
+              <li>Always shift browser DOM focus to the error summary container (with <code>tabindex="-1"</code>) when a form submission fails.</li>
+              <li>Provide anchor links within the summary that jump focus directly to the corresponding input element.</li>
+              <li>Never communicate errors through red text or borders alone; include explicit text instructions.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "Alert: There are 1 errors in this submission: Corporate Email is required link"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>3.3.1 Error Identification</p><p>3.3.2 Labels or Instructions</p><p>2.4.3 Focus Order</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Link invalid form controls using explicit aria-describedby bindings.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Focus error summary</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Silent validation fails</li></ul></div>
+        </div>
+      </div>

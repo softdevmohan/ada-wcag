@@ -1,0 +1,94 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Logical Heading Hierarchies (H1-H6)</h2>
+        <p>Screen reader users navigate documents by cycling through heading tiers. Never skip heading ranks.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Sequential Heading Architecture</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 1.3.1</span><span class="badge badge-green">Level: A</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas" style="align-items:flex-start;">
+            <h1 style="font-size:1.5rem;font-weight:700;">H1: Account Administration</h1>
+            <h2 style="font-size:1.25rem;font-weight:600;margin-top:8px;">H2: Security Credentials</h2>
+            <h3 style="font-size:1.05rem;font-weight:500;margin-top:8px;">H3: Two-Factor Authentication</h3>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-hd-html')">
+              @if (copiedId === 'code-hd-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div><code class="code-content" ngNonBindable id="code-hd-html">&lt;main&gt;
+  &lt;h1&gt;Account Administration&lt;/h1&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Security Credentials&lt;/h2&gt;
+    &lt;section&gt;
+      &lt;h3&gt;Two-Factor Authentication&lt;/h3&gt;
+    &lt;/section&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-hd-ts')">
+              @if (copiedId === 'code-hd-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2</div><code class="code-content" ngNonBindable id="code-hd-ts">// Pure structural semantic layout
+export class HeadingStructureComponent &#123;&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-hd-css')">
+              @if (copiedId === 'code-hd-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3</div><code class="code-content" ngNonBindable id="code-hd-css">h1 &#123; font-size: 1.75rem; color: #0f172a; &#125;
+h2 &#123; font-size: 1.35rem; color: #1e293b; &#125;
+h3 &#123; font-size: 1.1rem; color: #334155; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Heading Hierarchy Rules</h4>
+            <ul>
+              <li>Provide exactly one <code>&lt;h1&gt;</code> per page view.</li>
+              <li>Do not skip from an <code>&lt;h2&gt;</code> directly to an <code>&lt;h4&gt;</code>. Use CSS classes for visual sizing adjustments.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "Heading Level 1: Account Administration"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>1.3.1 Info and Relationships</p><p>2.4.6 Headings & Labels</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Avoid skipped heading levels throughout document flow.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Strict order</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Skip tiers</li></ul></div>
+        </div>
+      </div>

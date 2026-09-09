@@ -1,0 +1,115 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Route Announcer & Architecture</h2>
+        <p>Single Page Applications (SPAs) require explicit routing announcements to update screen readers on view changes.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Route Title Announcer Component</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 2.4.2</span><span class="badge badge-green">Level: AA</span></div>
+        </div>
+        <p class="template-desc">Live region listener dynamically updating page title changes for assistive technologies.</p>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;width:100%;max-width:440px;">
+              <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <button type="button" style="background:#1765e7;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;" (click)="setRouteDemo('Active Route: /dashboard (Dashboard Loaded)')">Load Dashboard</button>
+                <button type="button" style="background:#475569;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;" (click)="setRouteDemo('Active Route: /settings (Settings Loaded)')">Load Settings</button>
+              </div>
+              <p id="route-demo" style="font-size:0.85rem;color:#16a34a;font-weight:600;">{{ routeDemo }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-gs-html')">
+              @if (copiedId === 'code-gs-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><code class="code-content" ngNonBindable id="code-gs-html">&lt;div class="sr-only" role="status" aria-live="polite" aria-atomic="true"&gt;
+  &#123;&#123; activePageTitle$ | async &#125;&#125;
+&lt;/div&gt;
+&lt;main id="main-content" tabindex="-1"&gt;
+  &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/main&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-gs-ts')">
+              @if (copiedId === 'code-gs-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13</div><code class="code-content" ngNonBindable id="code-gs-ts">import &#123; Component, OnInit &#125; from '&#64;angular/core';
+import &#123; Router, NavigationEnd &#125; from '&#64;angular/router';
+import &#123; Title &#125; from '&#64;angular/platform-browser';
+import &#123; filter, map &#125; from 'rxjs/operators';
+
+&#64;Component(&#123; selector: 'app-root', templateUrl: './app.component.html' &#125;)
+export class AppComponent implements OnInit &#123;
+  activePageTitle$ = this.router.events.pipe(
+    filter(e => e instanceof NavigationEnd),
+    map(() => this.titleService.getTitle() + ' page loaded')
+  );
+  constructor(private router: Router, private titleService: Title) &#123;&#125;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-gs-css')">
+              @if (copiedId === 'code-gs-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div><code class="code-content" ngNonBindable id="code-gs-css">.sr-only &#123;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Routing Architectural Rules</h4>
+            <ul>
+              <li>Always set <code>document.title</code> on navigation to satisfy WCAG 2.4.2.</li>
+              <li>Use <code>aria-live="polite"</code> so route alerts do not interrupt user-initiated typing.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "Dashboard page loaded, status"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>2.4.2 Page Titled</p><p>4.1.3 Status Messages</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Ensure SPA routing resets focus to top landmarks.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Polite route alerts</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Silent routing</li></ul></div>
+        </div>
+      </div>

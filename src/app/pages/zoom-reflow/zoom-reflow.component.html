@@ -1,0 +1,90 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Zoom & 400% Reflow (WCAG 2.2)</h2>
+        <p>Ensure web content reflows seamlessly at 400% zoom without horizontal scrolling or truncation.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Fluid Auto-Fitting Grid Container</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 1.4.10</span><span class="badge badge-green">Level: AA</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 180px), 1fr));gap:12px;width:100%;">
+              <div style="background:#fff;padding:12px;border:1px solid #cbd5e1;border-radius:6px;font-size:0.85rem;">Card 1 (Fluid)</div>
+              <div style="background:#fff;padding:12px;border:1px solid #cbd5e1;border-radius:6px;font-size:0.85rem;">Card 2 (Fluid)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-ref-html')">
+              @if (copiedId === 'code-ref-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-ref-html">&lt;div class="fluid-grid"&gt;
+  &lt;div class="card" *ngFor="let item of items"&gt;&#123;&#123; item.title &#125;&#125;&lt;/div&gt;
+&lt;/div&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-ref-ts')">
+              @if (copiedId === 'code-ref-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2</div><code class="code-content" ngNonBindable id="code-ref-ts">export class ZoomReflowComponent &#123;&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-ref-css')">
+              @if (copiedId === 'code-ref-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-ref-css">.fluid-grid &#123;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1.25rem;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Reflow Rules</h4>
+            <ul>
+              <li>Avoid fixed pixel widths exceeding <code>320px</code>.</li>
+              <li>Never set <code>user-scalable="no"</code> in viewport meta tags.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "Reflow verified without layout breaks"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>1.4.10 Reflow (400%)</p><p>1.4.4 Resize Text</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Avoid horizontal scrolling at 320px viewport width.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Relative rem/% units</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Fixed 1200px widths</li></ul></div>
+        </div>
+      </div>

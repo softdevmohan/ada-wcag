@@ -1,0 +1,128 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Empty States & Guidance Views</h2>
+        <p>Prevent blank screens when collections or query results have zero items by supplying clear explanations and primary call-to-actions.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Actionable Empty State Component</h3>
+          <div class="badges-group">
+            <span class="badge badge-blue">WCAG: 1.3.1</span>
+            <span class="badge badge-green">Level: A</span>
+          </div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:28px;text-align:center;max-width:440px;">
+              <div style="width:48px;height:48px;border-radius:50%;background:#eff6ff;color:#1765e7;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;" aria-hidden="true">
+                <app-icon name="inbox" style="width:24px;height:24px;"></app-icon>
+              </div>
+              <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:6px;">No Active Projects Found</h3>
+              <p style="font-size:0.85rem;color:#64748b;margin-bottom:16px;">You have not created any projects in this workspace yet. Get started by initializing your first workspace project.</p>
+              <button type="button" style="background:#1765e7;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:600;cursor:pointer;">Create New Project</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">HTML Template</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-emp-html')">
+              @if (copiedId === 'code-emp-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12</div>
+              <code class="code-content" ngNonBindable id="code-emp-html">&lt;div class="empty-state-card" role="region" aria-labelledby="emptyHeading"&gt;
+  &lt;div class="empty-icon-wrap" aria-hidden="true"&gt;
+    &lt;svg focusable="false"&gt;&lt;use href="#icon-folder-open"&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;h3 id="emptyHeading"&gt;No Active Projects Found&lt;/h3&gt;
+  &lt;p&gt;You have not created any projects in this workspace yet.&lt;/p&gt;
+  &lt;button type="button" class="btn btn-primary" (click)="onCreateProject()"&gt;
+    Create New Project
+  &lt;/button&gt;
+&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">TypeScript</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-emp-ts')">
+              @if (copiedId === 'code-emp-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7</div>
+              <code class="code-content" ngNonBindable id="code-emp-ts">export class EmptyStateComponent &#123;
+  onCreateProject(): void &#123;
+    // Navigate to project creation wizard
+  &#125;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">CSS</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-emp-css')">
+              @if (copiedId === 'code-emp-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</div>
+              <code class="code-content" ngNonBindable id="code-emp-css">.empty-state-card &#123;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Empty State Design Rules</h4>
+            <ul>
+              <li>Decorate empty-state illustrations with <code>aria-hidden="true"</code> so screen readers focus solely on actionable content.</li>
+              <li>Provide semantic headings (<code>&lt;h3&gt;</code>) linked via <code>aria-labelledby</code> on the wrapping region.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "No Active Projects Found, heading level 3. Create New Project button"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>1.3.1 Info and Relationships</p><p>2.4.6 Headings and Labels</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Illustrations must be marked decorative via aria-hidden="true".</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Actionable button</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Blank empty views</li></ul></div>
+        </div>
+      </div>

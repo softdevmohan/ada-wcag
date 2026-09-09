@@ -1,0 +1,101 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible External Links & New Window Alerts</h2>
+        <p>Links that open new browser tabs must state target intent explicitly to assistive technologies.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Target Blank Safe Hyperlink</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 2.4.4</span><span class="badge badge-green">Level: AA</span></div>
+        </div>
+        <p class="template-desc">Includes screen reader warnings and prevents reverse tabnabbing vulnerabilities.</p>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <a href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener noreferrer" style="color:#1765e7;font-weight:600;text-decoration:underline;display:inline-flex;align-items:center;gap:4px;">
+              Read W3C WCAG 2.2 Specifications
+              <app-icon name="external-link" style="width:14px;height:14px;"></app-icon>
+              <span class="sr-only">(opens in a new window)</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-lnk-html')">
+              @if (copiedId === 'code-lnk-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7</div><code class="code-content" ngNonBindable id="code-lnk-html">&lt;a [href]="externalUrl" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="accessible-link"&gt;
+  Read Documentation
+  &lt;span class="sr-only"&gt;(opens in a new window)&lt;/span&gt;
+&lt;/a&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-lnk-ts')">
+              @if (copiedId === 'code-lnk-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-lnk-ts">export class LinkComponent &#123;
+  externalUrl = 'https://www.w3.org/WAI/WCAG22/quickref/';
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-lnk-css')">
+              @if (copiedId === 'code-lnk-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7</div><code class="code-content" ngNonBindable id="code-lnk-css">.accessible-link &#123;
+  color: #1765e7;
+  text-decoration: underline;
+&#125;
+.accessible-link:focus-visible &#123;
+  outline: 3px solid #1765e7;
+  outline-offset: 2px;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Link Guidelines</h4>
+            <ul>
+              <li>Always append <code>rel="noopener noreferrer"</code> when using <code>target="_blank"</code>.</li>
+              <li>Avoid generic link labels like "Click here". State destination content clearly.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "Read Documentation (opens in a new window), link"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>2.4.4 Link Purpose</p><p>3.2.5 Change on Request</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Target blank links must provide rel='noopener noreferrer'.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Explicit warnings</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Unlabelled new windows</li></ul></div>
+        </div>
+      </div>

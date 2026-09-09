@@ -1,0 +1,96 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>WAI-ARIA Attributes & Stepper States</h2>
+        <p>First Rule of ARIA: Do not use ARIA when native HTML semantic elements suffice. Use <code>aria-current</code> for steps and active routes.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Accessible Multi-Step Breadcrumb / Stepper</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 4.1.2</span><span class="badge badge-green">Level: A</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <nav aria-label="Checkout Progress">
+              <ol style="list-style:none;display:flex;gap:16px;font-size:0.85rem;font-weight:600;">
+                <li style="color:#64748b;">1. Cart</li>
+                <li aria-current="step" style="color:#1765e7;border-bottom:2px solid #1765e7;">2. Shipping (Current Step)</li>
+                <li style="color:#64748b;">3. Payment</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-aria-html')">
+              @if (copiedId === 'code-aria-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</div><code class="code-content" ngNonBindable id="code-aria-html">&lt;nav aria-label="Step Progress"&gt;
+  &lt;ol class="stepper"&gt;
+    &lt;li [attr.aria-current]="currentStep === 1 ? 'step' : null"&gt;1. Account&lt;/li&gt;
+    &lt;li [attr.aria-current]="currentStep === 2 ? 'step' : null"&gt;2. Payment&lt;/li&gt;
+    &lt;li [attr.aria-current]="currentStep === 3 ? 'step' : null"&gt;3. Review&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-aria-ts')">
+              @if (copiedId === 'code-aria-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3</div><code class="code-content" ngNonBindable id="code-aria-ts">export class StepperComponent &#123;
+  currentStep = 2;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-aria-css')">
+              @if (copiedId === 'code-aria-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3</div><code class="code-content" ngNonBindable id="code-aria-css">li[aria-current="step"] &#123; color: #1765e7; border-bottom: 2px solid #1765e7; &#125;
+.stepper &#123; display: flex; gap: 16px; list-style: none; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>ARIA Rules</h4>
+            <ul>
+              <li>Use <code>aria-current="step"</code> or <code>aria-current="page"</code> to inform assistive technology of the active position.</li>
+              <li>Avoid invented ARIA attributes like <code>aria-enabled</code>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "2. Payment, current step, item 2 of 3"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>4.1.2 Name, Role, Value</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Ensure all ARIA attributes supplied are valid according to W3C specs.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> aria-current</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Redundant roles (&lt;button role="button"&gt;)</li></ul></div>
+        </div>
+      </div>

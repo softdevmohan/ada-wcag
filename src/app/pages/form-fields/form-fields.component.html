@@ -1,0 +1,103 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Accessible Form Fields & Error Linking</h2>
+        <p>Connect inputs directly to helper instructions and inline errors using <code>aria-describedby</code> and <code>aria-invalid</code>.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Text Input with Error Association</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 3.3.2</span><span class="badge badge-green">Level: AA</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="width:100%;max-width:380px;display:flex;flex-direction:column;gap:6px;">
+              <label for="demo-email" style="font-weight:600;font-size:0.85rem;">Work Email <span style="color:#dc2626;">*</span></label>
+              <input id="demo-email" type="email" value="invalid-email" aria-describedby="demo-hint demo-err" aria-invalid="true" style="padding:8px 12px;border:1px solid #dc2626;border-radius:6px;outline:none;" />
+              <span id="demo-hint" style="font-size:0.75rem;color:#64748b;">Format: username&#64;company.com</span>
+              <span id="demo-err" role="alert" style="font-size:0.75rem;color:#dc2626;font-weight:600;">Please enter a valid email format.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-inp-html')">
+              @if (copiedId === 'code-inp-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12</div><code class="code-content" ngNonBindable id="code-inp-html">&lt;div class="form-control"&gt;
+  &lt;label for="workEmail"&gt;Work Email &lt;span aria-hidden="true"&gt;*&lt;/span&gt;&lt;/label&gt;
+  &lt;input 
+    id="workEmail" 
+    type="email"
+    [formControl]="emailCtrl"
+    [attr.aria-invalid]="emailCtrl.invalid && emailCtrl.touched"
+    aria-describedby="emailHint emailErr" 
+    required /&gt;
+  &lt;span id="emailHint" class="hint"&gt;Format: name&#64;domain.com&lt;/span&gt;
+  &lt;span id="emailErr" class="error" role="alert" *ngIf="emailCtrl.invalid && emailCtrl.touched"&gt;Valid work email required.&lt;/span&gt;
+&lt;/div&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-inp-ts')">
+              @if (copiedId === 'code-inp-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><code class="code-content" ngNonBindable id="code-inp-ts">import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl, Validators &#125; from '&#64;angular/forms';
+
+export class InputFieldComponent &#123;
+  emailCtrl = new FormControl('', [Validators.required, Validators.email]);
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-inp-css')">
+              @if (copiedId === 'code-inp-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4</div><code class="code-content" ngNonBindable id="code-inp-css">input[aria-invalid="true"] &#123; border-color: #dc2626; &#125;
+input:focus-visible &#123; outline: 3px solid #1765e7; outline-offset: 2px; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Form Accessibility Rules</h4>
+            <ul>
+              <li>Always associate <code>&lt;label for="..."&gt;</code> with <code>&lt;input id="..."&gt;</code>.</li>
+              <li>Space-delimit IDs inside <code>aria-describedby</code> to announce both hints and error messages upon focus.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "Work Email star, edit invalid entry, Format: name&#64;domain.com"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>3.3.1 Error Identification</p><p>3.3.2 Labels or Instructions</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Form controls must have explicit label associations (Rule S6848).</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> aria-describedby</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Replace label with placeholder</li></ul></div>
+        </div>
+      </div>

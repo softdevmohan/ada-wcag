@@ -1,0 +1,132 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Enterprise ADA / WCAG 2.2 AA Testing Checklist</h2>
+        <p>Complete manual and automated compliance verification procedures for enterprise releases.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>WCAG 2.2 AA Verification Matrix</h3>
+          <div class="badges-group">
+            <span class="badge badge-blue">WCAG: 2.2 AA</span>
+            <span class="badge badge-green">Production Gate</span>
+          </div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas" style="align-items:flex-start;">
+            <div style="background:#fff;border:1px solid #cbd5e1;border-radius:8px;padding:20px;width:100%;max-width:520px;">
+              <h4 style="font-weight:700;margin-bottom:12px;color:#16a34a;display:flex;align-items:center;gap:6px;">
+                <app-icon name="shield-check" style="width:18px;height:18px;"></app-icon> Sign-off Requirements
+              </h4>
+              <div style="display:flex;flex-direction:column;gap:8px;font-size:0.85rem;">
+                <label style="display:flex;align-items:center;gap:8px;"><input type="checkbox" checked disabled /> 100% Zero Violations on Axe-core scan</label>
+                <label style="display:flex;align-items:center;gap:8px;"><input type="checkbox" checked disabled /> Full keyboard only traversal verified (Tab / Space / Enter)</label>
+                <label style="display:flex;align-items:center;gap:8px;"><input type="checkbox" checked disabled /> NVDA (Firefox) & JAWS (Edge) speech output verified</label>
+                <label style="display:flex;align-items:center;gap:8px;"><input type="checkbox" checked disabled /> Text and UI element contrast ≥ 4.5:1 / 3:1 verified</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">HTML Template</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-chklist-html')">
+              @if (copiedId === 'code-chklist-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div>
+              <code class="code-content" ngNonBindable id="code-chklist-html">&lt;div class="qa-checklist-card"&gt;
+  &lt;h3&gt;Automated & Manual QA Sign-off&lt;/h3&gt;
+  &lt;ul class="checklist-items"&gt;
+    &lt;li&gt;&lt;i data-lucide="check-circle"&gt;&lt;/i&gt; Axe-core scan: 0 violations&lt;/li&gt;
+    &lt;li&gt;&lt;i data-lucide="check-circle"&gt;&lt;/i&gt; 400% Zoom reflow verified&lt;/li&gt;
+    &lt;li&gt;&lt;i data-lucide="check-circle"&gt;&lt;/i&gt; NVDA & JAWS speech verified&lt;/li&gt;
+    &lt;li&gt;&lt;i data-lucide="check-circle"&gt;&lt;/i&gt; Keyboard focus outlines visible&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">TypeScript (Axe-Core Jasmine Test)</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-chklist-ts')">
+              @if (copiedId === 'code-chklist-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+              <code class="code-content" ngNonBindable id="code-chklist-ts">import * as axe from 'axe-core';
+
+it('should have zero accessibility violations', async () => &#123;
+  const fixture = TestBed.createComponent(AppComponent);
+  fixture.detectChanges();
+  
+  const results = await axe.run(fixture.nativeElement);
+  expect(results.violations.length).toBe(0);
+&#125;);</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header">
+              <span class="snippet-title">CSS</span>
+              <button type="button" class="copy-btn" (click)="copyCode('code-chklist-css')">
+              @if (copiedId === 'code-chklist-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button>
+            </div>
+            <div class="code-display">
+              <div class="line-numbers">1<br>2<br>3<br>4<br>5</div>
+              <code class="code-content" ngNonBindable id="code-chklist-css">.qa-checklist-card &#123;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 24px;
+&#125;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>QA Sign-Off Protocol</h4>
+            <ul>
+              <li>Automated tools detect ~30-40% of accessibility defects. Manual keyboard checks and screen reader passes are required.</li>
+              <li>Confirm zero horizontal scrollbars when viewing the application at 400% zoom (viewport width 320 CSS pixels).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>JAWS:</strong> "QA Sign-off Requirements list with 4 items"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>WCAG 2.2 AA Standards</p><p>Section 508</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Integrate axe-core in CI/CD pipelines to prevent non-compliant PR merges.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> Manual testing</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Automated-only checks</li></ul></div>
+        </div>
+      </div>

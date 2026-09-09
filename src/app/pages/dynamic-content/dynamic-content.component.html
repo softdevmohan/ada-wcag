@@ -1,0 +1,91 @@
+<section class="hero-section" style="margin-bottom:24px;">
+        <h2>Dynamic Content & Asynchronous Status</h2>
+        <p>Notify assistive technologies when dynamic counters or filters update without stealing user focus.</p>
+      </section>
+
+      <div class="template-box">
+        <div class="template-box-header">
+          <h3>Dynamic Results Counter Region</h3>
+          <div class="badges-group"><span class="badge badge-blue">WCAG: 4.1.3</span><span class="badge badge-green">Level: AA</span></div>
+        </div>
+
+        <div class="code-tabs" role="tablist">
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'preview'" [attr.aria-selected]="activeTab === 'preview'" (click)="selectTab('preview')"><app-icon name="eye"></app-icon> Preview</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'html'" [attr.aria-selected]="activeTab === 'html'" (click)="selectTab('html')"><app-icon name="code-2"></app-icon> HTML</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'ts'" [attr.aria-selected]="activeTab === 'ts'" (click)="selectTab('ts')"><app-icon name="file-code-2"></app-icon> TypeScript</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'css'" [attr.aria-selected]="activeTab === 'css'" (click)="selectTab('css')"><app-icon name="braces"></app-icon> CSS</button>
+          <button type="button" class="tab-btn" role="tab" [class.active]="activeTab === 'notes'" [attr.aria-selected]="activeTab === 'notes'" (click)="selectTab('notes')"><app-icon name="info"></app-icon> Notes</button>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'preview'">
+          <div class="preview-canvas">
+            <div style="width:100%;max-width:380px;">
+              <input type="search" placeholder="Type to filter items..." class="demo-input" oninput="document.getElementById('demo-cnt').innerText = this.value ? '2 items match your query' : '5 items match your query'" />
+              <div id="demo-cnt" role="status" aria-live="polite" style="margin-top:8px;font-size:0.85rem;color:#16a34a;font-weight:600;">5 items match your query</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'html'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">HTML Template</span><button type="button" class="copy-btn" (click)="copyCode('code-dyn-html')">
+              @if (copiedId === 'code-dyn-html') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><code class="code-content" ngNonBindable id="code-dyn-html">&lt;input type="search" [(ngModel)]="query" (input)="onFilter()" placeholder="Filter..." /&gt;
+&lt;div class="sr-only" role="status" aria-live="polite" aria-atomic="true"&gt;
+  &#123;&#123; resultsCount &#125;&#125; records found
+&lt;/div&gt;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'ts'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">TypeScript</span><button type="button" class="copy-btn" (click)="copyCode('code-dyn-ts')">
+              @if (copiedId === 'code-dyn-ts') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><code class="code-content" ngNonBindable id="code-dyn-ts">export class DynamicContentComponent &#123;
+  resultsCount = 5;
+  onFilter() &#123;
+    this.resultsCount = 2;
+  &#125;
+&#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'css'">
+          <div class="snippet-wrapper">
+            <div class="snippet-header"><span class="snippet-title">CSS</span><button type="button" class="copy-btn" (click)="copyCode('code-dyn-css')">
+              @if (copiedId === 'code-dyn-css') {
+                <app-icon name="check"></app-icon> Copied!
+              } @else {
+                <app-icon name="copy"></app-icon> Copy
+              }
+            </button></div>
+            <div class="code-display"><div class="line-numbers">1<br>2</div><code class="code-content" ngNonBindable id="code-dyn-css">input:focus-visible &#123; outline: 3px solid #1765e7; &#125;</code></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" [class.active]="activeTab === 'notes'">
+          <div class="notes-box">
+            <h4>Dynamic Status Rules</h4>
+            <ul>
+              <li>Use <code>aria-atomic="true"</code> so screen readers read the full sentence rather than only changed numbers.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="audit-grid">
+          <div class="audit-col"><div class="audit-col-title blue"><app-icon name="volume-2"></app-icon> JAWS / NVDA</div><p><strong>NVDA:</strong> "2 records found, status"</p></div>
+          <div class="audit-col"><div class="audit-col-title green"><app-icon name="shield-check"></app-icon> WCAG Criteria</div><p>4.1.3 Status Messages</p></div>
+          <div class="audit-col"><div class="audit-col-title purple"><app-icon name="code-2"></app-icon> SonarQube</div><p>Live regions must exist in DOM on initialization.</p></div>
+          <div class="audit-col"><div class="audit-col-title neutral"><app-icon name="check-circle-2"></app-icon> Do / Don't</div><ul><li><app-icon name="check-circle-2" class="icon-pass"></app-icon> aria-atomic="true"</li><li><app-icon name="x-circle" class="icon-fail"></app-icon> Assertive flood</li></ul></div>
+        </div>
+      </div>
